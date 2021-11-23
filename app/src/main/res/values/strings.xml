@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">NewsAPIClient</string>
+    <string name="title_activity_main">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="welcome_text">The application is developed to protect the certification work at the course android mobile application developer 2021. For authorization, you must use the api key obtained from the service https://newsapi.org/</string>
+    <string name="login">Login</string>
+    <string name="api_key_is_blank">api key must be entered</string>
+</resources>
