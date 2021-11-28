@@ -25,6 +25,7 @@ class FilterDialogFragment : Fragment() {
     lateinit var datePickerView: DateIntervalPickerView
     lateinit var startDateView: TextView
     lateinit var endDateView: TextView
+    lateinit var searchInTitleView: EditText
     lateinit var searchView: EditText
     lateinit var languageView: TextView
     lateinit var pageSizeView: TextView
@@ -40,14 +41,14 @@ class FilterDialogFragment : Fragment() {
         pageSizeView=view.findViewById(R.id.page_size_text_view)
         pageSizeView.text=pageSize.toString()
         pageSizeView.setOnClickListener{
-
+            ListDialogFragment.newInstance(REQUEST_KEY_PAGE_SIZE).show(requireActivity().supportFragmentManager,null)
         }
         languageView.setOnClickListener{
             ListDialogFragment.newInstance(REQUEST_KEY_LANGUAGES).show(requireActivity().supportFragmentManager,null)
-            //LanguagesDialogFragment().show(requireActivity().supportFragmentManager,null)
         }
         datePickerView=view.findViewById(R.id.datePickerView)
         searchView=view.findViewById(R.id.searchView)
+        searchInTitleView=view.findViewById(R.id.qIn_textview)
         startDateView=view.findViewById(R.id.start_date_tv)
         endDateView=view.findViewById(R.id.end_date_tv)
         datePickerView.setOnTimeTextChangedListener(object : DateIntervalPickerView.OnTimeTextChangedListener{
@@ -73,6 +74,14 @@ class FilterDialogFragment : Fragment() {
             { requestKey, result ->
                 selectedLanguage=result.getString(KEY_LANGUAGE) ?: ""
                 languageView.text=selectedLanguage
+            }
+        )
+        requireActivity().supportFragmentManager.setFragmentResultListener(
+            REQUEST_KEY_PAGE_SIZE,
+            viewLifecycleOwner,
+            { requestKey, result ->
+               pageSize=result.getString(KEY_PAGE_SIZE)?.toInt() ?: 100
+               pageSizeView.text=pageSize.toString()
             }
         )
         return view

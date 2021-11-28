@@ -23,6 +23,7 @@
     <string name="select_language_text">Select language</string>
     <string name="from_to_string">from/to</string>
     <string name="page_size_string">pageSize</string>
+    <string name="select_page_size">The number of results to return per page</string>
 
 
     <string-array name="languages">
@@ -40,5 +41,18 @@
         <item>se</item>
         <item>ud</item>
         <item>zh</item>
+    </string-array>
+
+    <string-array name="page_size">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+        <item>70</item>
+        <item>80</item>
+        <item>90</item>
+        <item>100</item>
     </string-array>
 </resources>

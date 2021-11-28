@@ -11,11 +11,11 @@ val REQUEST_KEY_LANGUAGES = "REQUEST_LANGUAGE"
 val REQUEST_KEY_PAGE_SIZE="REQUEST_PAGE_SIZE"
 val ARG_REQUEST_TYPE="REQUEST_TYPE"
 val KEY_LANGUAGE = "KEY_LANGUAGE"
-
+val KEY_PAGE_SIZE="KEY_PAGE_SIZE"
  class  ListDialogFragment private constructor(): DialogFragment() {
 
     private lateinit var languages: Array<String>
-    private lateinit var pageSizes: Array<Int>
+    private lateinit var pageSizes: Array<String>
     private lateinit var builder: AlertDialog.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,12 +35,21 @@ val KEY_LANGUAGE = "KEY_LANGUAGE"
                             result
                         )
                         dismiss()
-
                     }
             }
-            REQUEST_KEY_PAGE_SIZE->{}
+            REQUEST_KEY_PAGE_SIZE->{
+                pageSizes=resources.getStringArray(R.array.page_size)
+                builder.setTitle(resources.getString(R.string.select_page_size))
+                    .setItems(pageSizes){dialog,which->
+                        val result=Bundle().apply { putString(KEY_PAGE_SIZE,pageSizes[which]) }
+                        requireActivity().supportFragmentManager.setFragmentResult(
+                            REQUEST_KEY_PAGE_SIZE,
+                            result
+                        )
+                        dismiss()
+                    }
+            }
         }
-        //Log.d("S",arguments?.getString(ARG_REQUEST_TYPE) ?:"NOTHING")
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
