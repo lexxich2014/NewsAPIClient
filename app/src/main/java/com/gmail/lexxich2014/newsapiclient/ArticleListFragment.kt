@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -23,7 +24,7 @@ import retrofit2.Response
 const val ARG_API_KEY = "api_key_arg"
 
 class ArticleListFragment : Fragment() {
-
+    private lateinit var filterBtn: Button
     private lateinit var recyclerView: RecyclerView
     private lateinit var articleAdapter: ArticleAdapter
 
@@ -38,7 +39,7 @@ class ArticleListFragment : Fragment() {
         articleListViewModel.apiKey = key ?: ""
 
         articleAdapter = ArticleAdapter()
-
+/*
         articleListViewModel.apiService.getArticles(
             "Apple",
             "2021-11-22",
@@ -60,6 +61,7 @@ class ArticleListFragment : Fragment() {
             }
 
         })
+        */
     }
 
     override fun onCreateView(
@@ -69,14 +71,62 @@ class ArticleListFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_article_list, container, false)
         recyclerView = view.findViewById(R.id.fragment_article_list__recyclerView)
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy>0 && filterBtn.isShown){
+                    filterBtn.visibility=View.INVISIBLE
+                }
+                if(dy<0 && !filterBtn.isShown){
+                    filterBtn.visibility=View.VISIBLE
+                }
+            }
+        })
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = articleAdapter
         }
+        filterBtn=view.findViewById(R.id.fragment_article__filter_btn)
+        filterBtn.setOnClickListener{
+            val fragment=FilterDialogFragment.newInstance()
+            fragment.show(requireActivity().supportFragmentManager,null)
+        }
+
+        requireActivity().supportFragmentManager.setFragmentResultListener(REQUEST_FILTER,viewLifecycleOwner){
+                requestKey,result->
+            if(requestKey== REQUEST_FILTER){
+                articleListViewModel.sendRequest(result).enqueue(object: Callback<ResponseModel>{
+                    override fun onResponse(
+                        call: Call<ResponseModel>,
+                        response: Response<ResponseModel>
+                    ) {
+                        val receivedItems = response.body()?.articles
+                        if (receivedItems != null) {
+                            articleListViewModel.loadedItems.clear()
+                            articleListViewModel.loadedItems.addAll(receivedItems)
+                            articleAdapter.notifyDataSetChanged()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseModel>, t: Throwable) {
+
+                    }
+
+                })
+            }
+        }
+
         return view
     }
 
-    inner class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+
+
+    inner class ArticleViewHolder(view: View) : RecyclerView.ViewHolder(view),
+        View.OnClickListener {
         lateinit var article: Article
         var titleView: TextView = view.findViewById(R.id.item_article_title)
         var descriptionView: TextView = view.findViewById(R.id.item_article_description)
@@ -85,7 +135,7 @@ class ArticleListFragment : Fragment() {
         var dateView: TextView = view.findViewById(R.id.item_article_date)
         var sourceNameView: TextView = view.findViewById(R.id.item_article_sourcename)
 
-        init{
+        init {
             itemView.setOnClickListener(this)
         }
 
@@ -105,7 +155,7 @@ class ArticleListFragment : Fragment() {
         override fun onClick(v: View?) {
             requireActivity().supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container,WebViewFragment.newInstance(article.url))
+                .replace(R.id.fragment_container, WebViewFragment.newInstance(article.url))
                 .addToBackStack(null)
                 .commit()
         }

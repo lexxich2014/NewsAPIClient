@@ -6,4 +6,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="baseLine1">#CDCDCFD1</color>
+    <color name="baseLine2">#1973e8</color>
+    <color name="custom_picker">#ECD505</color>
+    <color name="selected_interval">#83424242</color>
 </resources>

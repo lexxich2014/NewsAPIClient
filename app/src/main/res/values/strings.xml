@@ -12,4 +12,6 @@
     <string name="welcome_text">The application is developed to protect the certification work at the course android mobile application developer 2021. For authorization, you must use the api key obtained from the service https://newsapi.org/</string>
     <string name="login">Login</string>
     <string name="api_key_is_blank">api key must be entered</string>
+    <string name="filter_text">Параметры</string>
+    <string name="search">Search</string>
 </resources>
