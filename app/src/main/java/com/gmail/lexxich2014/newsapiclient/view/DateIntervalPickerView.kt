@@ -7,10 +7,21 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import com.gmail.lexxich2014.newsapiclient.R
+import com.gmail.lexxich2014.newsapiclient.utils.AppUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DateIntervalPickerView(val ctx: Context, attr: AttributeSet) : View(ctx, attr) {
+
+    interface OnTimeTextChangedListener{
+        fun onTimeIntervalTextChanged(startText: String, endText: String)
+    }
+
+    private lateinit var callback: OnTimeTextChangedListener
+
+    fun setOnTimeTextChangedListener(listener: OnTimeTextChangedListener){
+        callback=listener
+    }
 
     var startDate: Long
     var currentDate: Long
@@ -148,8 +159,11 @@ class DateIntervalPickerView(val ctx: Context, attr: AttributeSet) : View(ctx, a
         selectedStartDate.time=startDate + startDelta
         val endDelta = (millisInPixel * (picker2.x+picker2.width/2)).toLong()
         selectedEndDate.time=startDate + endDelta
-        canvas?.drawText(sdf.format(selectedStartDate), 0F, 43F, paintText)
-        canvas?.drawText(sdf.format(selectedEndDate), 400F, 43F, paintText)
+        if(callback!=null){
+            callback.onTimeIntervalTextChanged(AppUtils.dateStringFromMillis(selectedStartDate),AppUtils.dateStringFromMillis(selectedEndDate))
+        }
+        //canvas?.drawText(sdf.format(selectedStartDate), 0F, 43F, paintText)
+        //canvas?.drawText(sdf.format(selectedEndDate), 400F, 43F, paintText)
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {

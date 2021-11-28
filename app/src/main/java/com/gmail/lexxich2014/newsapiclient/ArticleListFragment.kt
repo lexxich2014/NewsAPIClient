@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.lexxich2014.newsapiclient.responsemodel.Article
 import com.gmail.lexxich2014.newsapiclient.responsemodel.ResponseModel
+import com.gmail.lexxich2014.newsapiclient.utils.AppUtils
 import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
@@ -93,7 +94,7 @@ class ArticleListFragment : Fragment() {
         filterBtn=view.findViewById(R.id.fragment_article__filter_btn)
         filterBtn.setOnClickListener{
             val fragment=FilterDialogFragment.newInstance()
-            fragment.show(requireActivity().supportFragmentManager,null)
+           // fragment.show(requireActivity().supportFragmentManager,null)
         }
 
         requireActivity().supportFragmentManager.setFragmentResultListener(REQUEST_FILTER,viewLifecycleOwner){
@@ -147,7 +148,7 @@ class ArticleListFragment : Fragment() {
                 descriptionView.text = it.description
                 Picasso.get().load(it.urlToImage).into(imageView)
                 authorView.text = it.author
-                dateView.text = it.publishedAt
+                dateView.text = AppUtils.parseDateStringFromUTC(it.publishedAt)
                 sourceNameView.text = it.source.name//!!!!!!!!!!!!
             }
         }

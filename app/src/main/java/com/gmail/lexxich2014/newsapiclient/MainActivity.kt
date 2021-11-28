@@ -13,10 +13,12 @@ class MainActivity : AppCompatActivity(),InitFragment.Callbacks {
         setContentView(R.layout.activity_main)
 
 
+
+
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if(fragment==null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container,InitFragment())
+                .add(R.id.fragment_container,FilterDialogFragment())
                 .commit()
         }
 

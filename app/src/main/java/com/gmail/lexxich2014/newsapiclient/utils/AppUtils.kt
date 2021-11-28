@@ -5,11 +5,20 @@ import java.util.*
 
 class AppUtils {
     companion object {
-        private const val TIME_PATTERN = "yyyy-mm-dd"
-        private val simpleDateFormat = SimpleDateFormat(TIME_PATTERN)
+
+        private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
+        private val simpleDateFormat2=SimpleDateFormat("dd-MM-yyyy")
 
         fun parseDateForRequest(date: Date): String {
             return simpleDateFormat.format(date)
+        }
+
+        fun parseDateStringFromUTC(utcString: String): String{
+            return simpleDateFormat2.format(simpleDateFormat.parse(utcString))
+        }
+
+        fun dateStringFromMillis(time: Date): String{
+            return simpleDateFormat2.format(time)
         }
     }
 }
