@@ -39,7 +39,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Language"
+        android:text="en"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -83,13 +83,21 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <RadioGroup
-        android:id="@+id/radioGroup2"
+        android:id="@+id/sort_by_radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+        <RadioButton
+            android:id="@+id/publishedAt_rb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="@string/publishedAt" />
 
         <RadioButton
             android:id="@+id/relevancy_rb"
@@ -105,12 +113,6 @@
             android:layout_weight="1"
             android:text="@string/popularity" />
 
-        <RadioButton
-            android:id="@+id/publishedAt_rb"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/publishedAt" />
     </RadioGroup>
 
     <TextView
@@ -156,7 +158,7 @@
         android:layout_marginTop="16dp"
         android:text="@string/from_to_string"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+        app:layout_constraintTop_toBottomOf="@+id/page_size_text_view" />
 
     <TextView
         android:id="@+id/textView7"
@@ -165,7 +167,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/page_size_string"
-        app:layout_constraintTop_toBottomOf="@+id/datePickerView"
+        app:layout_constraintTop_toBottomOf="@+id/sort_by_radioGroup"
         custom:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -174,7 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
+        android:text="100"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

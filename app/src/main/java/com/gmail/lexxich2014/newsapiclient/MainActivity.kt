@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(),InitFragment.Callbacks {
         val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
         if(fragment==null){
             supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container,FilterDialogFragment())
+                .add(R.id.fragment_container,InitFragment())
                 .commit()
         }
 

@@ -1,5 +1,6 @@
 package com.gmail.lexxich2014.newsapiclient
 
+import android.content.Context
 import com.gmail.lexxich2014.newsapiclient.api.APIService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -8,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.IllegalStateException
 
-class AppRepository {
+class AppRepository private constructor(context: Context){
 
     private val BASE_URL = "https://newsapi.org/"
 
@@ -34,9 +35,9 @@ class AppRepository {
 
         private var INSTANCE: AppRepository? = null
 
-        fun init() {
+        fun init(context: Context) {
             if (INSTANCE == null) {
-                INSTANCE = AppRepository()
+                INSTANCE = AppRepository(context)
             }
         }
 
