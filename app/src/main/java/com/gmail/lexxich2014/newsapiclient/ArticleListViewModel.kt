@@ -19,7 +19,7 @@ class ArticleListViewModel() : ViewModel() {
 
 
      fun prepareRequest(args: Bundle):Call<ResponseModel> {
-        val language=args.getString(ARG_LANGUAGE) ?: "ru"
+        val language=args.getString(ARG_LANGUAGE) ?: "en"
         val startDate=args.getSerializable(ARG_FROM_DATE) as Date
         val endDate=args.getSerializable(ARG_TO_DATE) as Date
         val search=args.getString(ARG_SEARCH) ?: ""
@@ -40,13 +40,3 @@ class ArticleListViewModel() : ViewModel() {
     }
 
 }
-/*
-        @Query("q") q: String,
-        @Query("qInTitle") qInTitle: String,
-        @Query("from") from: String,
-        @Query("to") to: String,
-        @Query("language") language: String,
-        @Query("sortBy") sortBy: String,
-        @Query("pageSize") pageSize: String,
-        @Query("apiKey") apiKey: String
- */

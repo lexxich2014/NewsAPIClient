@@ -12,7 +12,7 @@
     <string name="welcome_text">The application is developed to protect the certification work at the course android mobile application developer 2021. For authorization, you must use the api key obtained from the service https://newsapi.org/</string>
     <string name="login">Login</string>
     <string name="api_key_is_blank">api key must be entered</string>
-    <string name="filter_text">Параметры</string>
+    <string name="filter_text">Settings</string>
     <string name="search">Search</string>
     <string name="sort_by">SortBy</string>
     <string name="relevancy">relevancy</string>
@@ -25,6 +25,8 @@
     <string name="page_size_string">pageSize</string>
     <string name="select_page_size">The number of results to return per page</string>
     <string name="show_results">show_results</string>
+    <string name="share">share</string>
+    <string name="shared_from">News from NewsClient</string>
 
 
     <string-array name="languages">
